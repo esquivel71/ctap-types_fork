@@ -210,6 +210,8 @@ pub enum Version {
     Fido2_1,
     Fido2_1Pre,
     U2fV2,
+    // CTAP2.1+
+    Fido2_1P,
 }
 
 impl Version {
@@ -217,6 +219,8 @@ impl Version {
     const FIDO_2_1: &'static str = "FIDO_2_1";
     const FIDO_2_1_PRE: &'static str = "FIDO_2_1_PRE";
     const U2F_V2: &'static str = "U2F_V2";
+    // CTAP2.1+
+    const FIDO_2_1_P: &'static str = "FIDO_2_1_P";
 }
 
 impl From<Version> for &str {
@@ -225,6 +229,8 @@ impl From<Version> for &str {
             Version::Fido2_0 => Version::FIDO_2_0,
             Version::Fido2_1 => Version::FIDO_2_1,
             Version::Fido2_1Pre => Version::FIDO_2_1_PRE,
+            // CTAP2.1+
+            Version::Fido2_1P => Version::FIDO_2_1_P,
             Version::U2fV2 => Version::U2F_V2,
         }
     }
@@ -239,6 +245,8 @@ impl TryFrom<&str> for Version {
             Self::FIDO_2_1 => Ok(Self::Fido2_1),
             Self::FIDO_2_1_PRE => Ok(Self::Fido2_1Pre),
             Self::U2F_V2 => Ok(Self::U2fV2),
+            // CTAP2.1+
+            Self::FIDO_2_1_P => Ok(Self::Fido2_1P),
             _ => Err(TryFromStrError),
         }
     }
@@ -454,6 +462,8 @@ mod tests {
             (Version::Fido2_1, "FIDO_2_1"),
             (Version::Fido2_1Pre, "FIDO_2_1_PRE"),
             (Version::U2fV2, "U2F_V2"),
+            // CTAP2.1+
+            (Version::Fido2_1P, "FIDO_2_1_P"),
         ];
         for (version, s) in versions {
             assert_tokens(&version, &[Token::BorrowedStr(s)]);

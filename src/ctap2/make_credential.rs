@@ -125,6 +125,9 @@ pub struct Response {
     pub large_blob_key: Option<ByteArray<32>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unsigned_extension_outputs: Option<UnsignedExtensionOutputs>,
+    // CTAP2.1+ only
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_auth: Option<[u8;32]>,
 }
 
 #[derive(Debug)]
@@ -143,6 +146,8 @@ impl ResponseBuilder {
             ep_att: None,
             large_blob_key: None,
             unsigned_extension_outputs: None,
+            // CTAP2.1+
+            response_auth: None
         }
     }
 }

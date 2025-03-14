@@ -133,6 +133,9 @@ pub struct Response {
     pub ep_att: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub att_stmt: Option<AttestationStatement>,
+    // CTAP2.1+ only -> tag authenticating response
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_auth: Option<[u8;32]>,
 }
 
 #[derive(Debug)]
@@ -156,6 +159,7 @@ impl ResponseBuilder {
             unsigned_extension_outputs: None,
             ep_att: None,
             att_stmt: None,
+            response_auth: None
         }
     }
 }

@@ -191,6 +191,9 @@ pub struct AuthenticatorOptions {
     /// for instance with biometrics or on-device PIN entry,
     /// use of pinAuth is implicit where required.
     pub uv: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    // CTAP2.1+ -> this is used by the client to signal that it wants to perform mutual authentication
+    pub ma: Option<bool>,
 }
 
 bitflags! {
@@ -406,6 +409,8 @@ pub enum Error {
     InvalidSubcommand = 0x3E,
     UvInvalid = 0x3F,
     UnauthorizedPermission = 0x40,
+    // CTAP2.1+
+    CannotAuthenticateResponse = 0x50,
     Other = 0x7F,
     SpecLast = 0xDF,
     ExtensionFirst = 0xE0,
